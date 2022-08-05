@@ -1,5 +1,5 @@
 import unittest
-import find_tables_from_select as ft
+import find_tables as ft
 
 
 class TestFindTablesFromSelectInFromClause(unittest.TestCase):

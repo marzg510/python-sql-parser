@@ -1,5 +1,5 @@
 import unittest
-import find_tables_from_select as ft
+import find_tables as ft
 
 
 class TestFindTablesFromSelectInFromClause(unittest.TestCase):
@@ -18,7 +18,7 @@ AND I.TYPE IN (SELECT TYPE FROM M_ITEM WHERE ID > 50)
         self.assertEqual(result, correct_tables)
 
     def test_exists_subquery(self):
-        pass
+        self.assertTrue("not implemented" == "")
 
 
 if __name__ == '__main__':
