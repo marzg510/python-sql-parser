@@ -4,15 +4,17 @@
 import sqlparse
 import logging
 import os
-import sys
+# import sys
 
 
 global log
-log = logging.getLogger(os.path.splitext(os.path.basename(__file__))[0])
-# log.setLevel(logging.DEBUG)
-log.setLevel(logging.INFO)
-handler = logging.StreamHandler(sys.stdout)
-# handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s"))
+log_name = os.path.splitext(os.path.basename(__file__))[0]
+log = logging.getLogger(log_name)
+log.setLevel(logging.DEBUG)
+#log.setLevel(logging.INFO)
+# handler = logging.StreamHandler(sys.stdout)
+handler = logging.FileHandler("log/%s.log" % log_name)
+handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s"))
 log.addHandler(handler)
 
 
@@ -33,6 +35,7 @@ def find_tables(query):
     """
     SQL文からテーブルを抽出する
     """
+    log.info("START")
     parsed_queries = sqlparse.parse(query)
     statement = parsed_queries[0]
     tables = list()
@@ -54,6 +57,7 @@ def find_tables(query):
         log.info("%s(alias=%s) %s(ttype=%s)" % (tbl.get_real_name(), tbl.get_alias(), type(tbl), tbl.ttype))
         ret.append(tbl.get_real_name())
 
+    log.info("END")
     return ret
 
 
