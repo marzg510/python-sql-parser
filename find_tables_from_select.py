@@ -6,12 +6,13 @@ import sqlparse
 IS_SHOW_TOKEN = False
 
 
-def show_tokens(tokens):
+def show_tokens(tokens, title=None):
     """
     tokenを表示する
     """
     if not IS_SHOW_TOKEN:
         return
+    print("<<%s>>" % title)
     for token in tokens:
         if token.is_whitespace:
             continue
@@ -45,7 +46,6 @@ def find_tables_from_where(tokens):
     WHERE句からテーブルを抽出する
     """
     tables = list()
-    print("<<where>>")
     show_tokens(tokens)
     for token in tokens:
         if isinstance(token, sqlparse.sql.Comparison):
@@ -58,12 +58,10 @@ def find_tables_from_parenthesis(tokens):
     カッコ内のSELECT文からテーブルを抽出する
     """
     tables = list()
-    print("<<Comparison>>")
-    tokens(tokens)
+    show_tokens(tokens, "Comparison")
     for token in tokens:
         if isinstance(token, sqlparse.sql.Parenthesis):
-            print("<<Parenthesis>>")
-            tokens(token.tokens)
+            show_tokens(token.tokens, "Parenthesis")
             tables.extend(find_tables_from_select(token.tokens))
     return tables
 
@@ -80,8 +78,7 @@ def main():
     tokens = statement.tokens
 
     # Show Statement Tokens
-    print("<<Statement>>")
-    show_tokens(tokens)
+    show_tokens(tokens, "Statement")
 
     # Find Tables
     tables = list()
