@@ -1,8 +1,0 @@
-SELECT
-  ID
-  ,USER_NAME
-FROM
-  USERS
-WHERE
-  ID > 10
-;

@@ -1,9 +1,0 @@
-SELECT
-  ID
-  ,USER_NAME
-FROM
-  USERS U
-  ,ITEMS I
-WHERE
-    U.ID > 10
-;
