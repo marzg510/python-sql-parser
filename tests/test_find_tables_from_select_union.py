@@ -67,6 +67,22 @@ FROM
         result = ft.find_tables(query)
         self.assertEqual(result, correct_tables)
 
+    def test_except(self):
+        query = """
+SELECT ID ,USER_NAME
+FROM
+  USERS U
+WHERE U.ID > 10
+EXCEPT
+SELECT ID ,USER_NAME
+FROM
+  USERS2
+;
+"""
+        correct_tables = ["USERS", "USERS2"]
+        result = ft.find_tables(query)
+        self.assertEqual(result, correct_tables)
+
 
 if __name__ == '__main__':
     unittest.main()

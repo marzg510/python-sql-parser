@@ -101,12 +101,12 @@ def find_tables_from_select(tokens):
             tables.extend(find_tables_from_where(tok.tokens))
             is_in_from = False
             log.info("FROM句を離脱")
-        if tok.match(sqlparse.tokens.Keyword, "UNION.*", regex=True):
+        if tok.match(sqlparse.tokens.Keyword, r"(UNION\s.*|EXCEPT|INTERSECT|MINUS)", regex=True):
             log.info("UNIONを検出(%s)" % tok)
-        if tok.match(sqlparse.tokens.Keyword, "MINUS"):
-            log.info("MINUSを検出(%s)" % tok)
-        if tok.match(sqlparse.tokens.Keyword, "INTERSECT"):
-            log.info("INTERSECTを検出(%s)" % tok)
+        # if tok.match(sqlparse.tokens.Keyword, "MINUS"):
+            # log.info("MINUSを検出(%s)" % tok)
+        # if tok.match(sqlparse.tokens.Keyword, "INTERSECT"):
+            # log.info("INTERSECTを検出(%s)" % tok)
     return tables
 
 
